@@ -13,6 +13,14 @@
 		4977C47F26D826E8004D0900 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4977C46F26D826E6004D0900 /* ContentView.swift */; };
 		4977C48026D826E8004D0900 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 4977C47026D826E8004D0900 /* Assets.xcassets */; };
 		4977C48126D826E8004D0900 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 4977C47026D826E8004D0900 /* Assets.xcassets */; };
+		4977C48B26D83103004D0900 /* Shader.metal in Sources */ = {isa = PBXBuildFile; fileRef = 4977C48A26D83103004D0900 /* Shader.metal */; };
+		4977C48C26D83103004D0900 /* Shader.metal in Sources */ = {isa = PBXBuildFile; fileRef = 4977C48A26D83103004D0900 /* Shader.metal */; };
+		4977C48E26D8311F004D0900 /* RenderCIToIOSurf.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4977C48D26D8311F004D0900 /* RenderCIToIOSurf.swift */; };
+		4977C48F26D8311F004D0900 /* RenderCIToIOSurf.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4977C48D26D8311F004D0900 /* RenderCIToIOSurf.swift */; };
+		4977C49126D8319F004D0900 /* RenderMetalToIOSurf.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4977C49026D8319F004D0900 /* RenderMetalToIOSurf.swift */; };
+		4977C49226D8319F004D0900 /* RenderMetalToIOSurf.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4977C49026D8319F004D0900 /* RenderMetalToIOSurf.swift */; };
+		4977C4B626D8651C004D0900 /* RenderDestination.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4977C4B526D8651C004D0900 /* RenderDestination.swift */; };
+		4977C4B726D8651C004D0900 /* RenderDestination.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4977C4B526D8651C004D0900 /* RenderDestination.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -21,6 +29,10 @@
 		4977C47026D826E8004D0900 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		4977C47526D826E8004D0900 /* ComputeVsFragmentShader.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ComputeVsFragmentShader.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		4977C47B26D826E8004D0900 /* ComputeVsFragmentShader.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ComputeVsFragmentShader.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		4977C48A26D83103004D0900 /* Shader.metal */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.metal; path = Shader.metal; sourceTree = "<group>"; };
+		4977C48D26D8311F004D0900 /* RenderCIToIOSurf.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RenderCIToIOSurf.swift; sourceTree = "<group>"; };
+		4977C49026D8319F004D0900 /* RenderMetalToIOSurf.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RenderMetalToIOSurf.swift; sourceTree = "<group>"; };
+		4977C4B526D8651C004D0900 /* RenderDestination.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RenderDestination.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -55,6 +67,10 @@
 				4977C46E26D826E6004D0900 /* ComputeVsFragmentShaderApp.swift */,
 				4977C46F26D826E6004D0900 /* ContentView.swift */,
 				4977C47026D826E8004D0900 /* Assets.xcassets */,
+				4977C48A26D83103004D0900 /* Shader.metal */,
+				4977C49026D8319F004D0900 /* RenderMetalToIOSurf.swift */,
+				4977C48D26D8311F004D0900 /* RenderCIToIOSurf.swift */,
+				4977C4B526D8651C004D0900 /* RenderDestination.swift */,
 			);
 			path = Shared;
 			sourceTree = "<group>";
@@ -166,8 +182,12 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				4977C48B26D83103004D0900 /* Shader.metal in Sources */,
 				4977C47E26D826E8004D0900 /* ContentView.swift in Sources */,
 				4977C47C26D826E8004D0900 /* ComputeVsFragmentShaderApp.swift in Sources */,
+				4977C49126D8319F004D0900 /* RenderMetalToIOSurf.swift in Sources */,
+				4977C4B626D8651C004D0900 /* RenderDestination.swift in Sources */,
+				4977C48E26D8311F004D0900 /* RenderCIToIOSurf.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -175,8 +195,12 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				4977C48C26D83103004D0900 /* Shader.metal in Sources */,
 				4977C47F26D826E8004D0900 /* ContentView.swift in Sources */,
 				4977C47D26D826E8004D0900 /* ComputeVsFragmentShaderApp.swift in Sources */,
+				4977C49226D8319F004D0900 /* RenderMetalToIOSurf.swift in Sources */,
+				4977C4B726D8651C004D0900 /* RenderDestination.swift in Sources */,
+				4977C48F26D8311F004D0900 /* RenderCIToIOSurf.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
