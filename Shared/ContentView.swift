@@ -7,35 +7,6 @@
 
 import SwiftUI
 
-// Pipeline A:
-//
-
-struct IOSurfaceView: NSViewRepresentable {
-    
-    var surface: IOSurface? = nil
-    
-    final class Coordinator {
-        var layer: CALayer? = nil
-        init(){}
-    }
-
-    func makeCoordinator() -> Coordinator {
-        Coordinator()
-    }
-
-    func makeNSView(context: Context) -> NSView {
-        let v = NSView(frame: NSRect(x: 0, y: 0, width: 256, height: 256))
-        v.wantsLayer = true
-        updateNSView(v, context: context)
-        return v
-    }
-    
-    func updateNSView(_ v: NSView, context: Context) {
-        v.layer?.contents = surface ?? CGColor(red: 0, green: 1, blue: 1, alpha:0)
-        v.layer?.transform = CATransform3DMakeScale(1.0001, 1.0001, 1.0)
-    }
-}
-
 extension MTLCommandBufferDescriptor {
     static let reportError: MTLCommandBufferDescriptor = {
         let errorStatus = MTLCommandBufferDescriptor()
@@ -44,25 +15,37 @@ extension MTLCommandBufferDescriptor {
     }()
 }
 
+enum Strategy {
+    case singlePassFragment
+    case multiPassFragment
+    case compute
+}
+
 class RenderManager: ObservableObject {
     let q: MTLCommandQueue
-    let r: MetalFragmentRenderer
+    let multiPass: MetalFragmentRenderer
+    let singlePass: MetalFragmentRenderer
+    let compute: MetalComputeRenderer
     let scope: MTLCaptureScope
-
+    
     init() throws /*MetalFailure*/ {
-        let r = try MetalFragmentRenderer(shaderName: "fillRedFrag")
+        let multi = try MetalFragmentRenderer(shaderNames: ["fragmentShader0", "fragmentShader1", "fragmentShader2"])
+        let single = try MetalFragmentRenderer(shaderNames: ["fragmentShader012"])
+        let compute = try MetalComputeRenderer(shaderNames: ["computeShader012"])
         
-        guard let q = r.device.makeCommandQueue()
+        let device = multi.device
+
+        guard let q = device.makeCommandQueue()
         else { throw MetalFailure.makeQueue }
-        
-        q.label = "FragmentRendererQ"
         
         let scope = MTLCaptureManager.shared().makeCaptureScope(device: q.device)
         scope.label = "FragmentRenderer"
         self.scope = scope
         
         self.q = q
-        self.r = r
+        self.multiPass = multi
+        self.singlePass = single
+        self.compute = compute
     }
 }
 
@@ -86,14 +69,29 @@ struct ContentView: View {
     @State var error: Error? = nil
     @State var gpuInfo: ExecutionInfo? = nil
 
+    @State var strategy: Strategy = .singlePassFragment
+
     // Hold on to renderer
     @StateObject var context = try! RenderManager()
 
     func render() {
         do {
-            let destTexDesc = context.r.makeDestinationTextureDescriptor(width: 256, height: 256)
+//            let sourceImage =
+            let sourceSize = (width: 2048, height: 2048)
+            
+            let destTexDesc: MTLTextureDescriptor
+            switch strategy {
+            case .singlePassFragment:
+                destTexDesc = context.singlePass.makeDestinationTextureDescriptor(width: sourceSize.width, height: sourceSize.height)
+            case .multiPassFragment:
+                destTexDesc = context.multiPass.makeDestinationTextureDescriptor(width: sourceSize.width, height: sourceSize.height)
+            case .compute:
+                destTexDesc = context.compute.makeDestinationTextureDescriptor(width: sourceSize.width, height: sourceSize.height)
 
-            guard let renderDest = makeRenderDest(device: context.r.device, descriptor: destTexDesc)
+            }
+
+
+            guard let renderDest = makeIOSurfaceRenderDest(device: context.multiPass.device, descriptor: destTexDesc)
             else { return }
             
             context.scope.begin()
@@ -102,7 +100,14 @@ struct ContentView: View {
             else { return }
             
             let (iosurf, tex) = renderDest
-            try context.r.enqueue(in: buf, writeTo: tex)
+            switch strategy {
+            case .singlePassFragment:
+                try context.singlePass.enqueue(in: buf, writeTo: tex)
+            case .multiPassFragment:
+                try context.multiPass.enqueue(in: buf, writeTo: tex)
+            case .compute:
+                try context.compute.enqueue(in: buf, writeTo: tex)
+            }
 
 
             buf.addCompletedHandler{buf in
@@ -136,6 +141,14 @@ struct ContentView: View {
             .frame(width: 256, height: 256)
         Button("Render") {
             render()
+        }
+        Picker("Stratgey", selection: $strategy) {
+            Text("Single-pass")
+                .tag(Strategy.singlePassFragment)
+            Text("Multi-pass")
+                .tag(Strategy.multiPassFragment)
+            Text("Compute")
+                .tag(Strategy.compute)
         }
         if let gpuInfo = gpuInfo {
             Text("GPU: \(ms(gpuInfo.gpuTime))")

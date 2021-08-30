@@ -21,6 +21,8 @@
 		4977C49226D8319F004D0900 /* RenderMetalToIOSurf.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4977C49026D8319F004D0900 /* RenderMetalToIOSurf.swift */; };
 		4977C4B626D8651C004D0900 /* RenderDestination.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4977C4B526D8651C004D0900 /* RenderDestination.swift */; };
 		4977C4B726D8651C004D0900 /* RenderDestination.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4977C4B526D8651C004D0900 /* RenderDestination.swift */; };
+		4977C4B926D8B464004D0900 /* IOSurfaceView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4977C4B826D8B464004D0900 /* IOSurfaceView.swift */; };
+		4977C4BA26D8B464004D0900 /* IOSurfaceView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4977C4B826D8B464004D0900 /* IOSurfaceView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -33,6 +35,7 @@
 		4977C48D26D8311F004D0900 /* RenderCIToIOSurf.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RenderCIToIOSurf.swift; sourceTree = "<group>"; };
 		4977C49026D8319F004D0900 /* RenderMetalToIOSurf.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RenderMetalToIOSurf.swift; sourceTree = "<group>"; };
 		4977C4B526D8651C004D0900 /* RenderDestination.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RenderDestination.swift; sourceTree = "<group>"; };
+		4977C4B826D8B464004D0900 /* IOSurfaceView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IOSurfaceView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -71,6 +74,7 @@
 				4977C49026D8319F004D0900 /* RenderMetalToIOSurf.swift */,
 				4977C48D26D8311F004D0900 /* RenderCIToIOSurf.swift */,
 				4977C4B526D8651C004D0900 /* RenderDestination.swift */,
+				4977C4B826D8B464004D0900 /* IOSurfaceView.swift */,
 			);
 			path = Shared;
 			sourceTree = "<group>";
@@ -187,6 +191,7 @@
 				4977C47C26D826E8004D0900 /* ComputeVsFragmentShaderApp.swift in Sources */,
 				4977C49126D8319F004D0900 /* RenderMetalToIOSurf.swift in Sources */,
 				4977C4B626D8651C004D0900 /* RenderDestination.swift in Sources */,
+				4977C4B926D8B464004D0900 /* IOSurfaceView.swift in Sources */,
 				4977C48E26D8311F004D0900 /* RenderCIToIOSurf.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -200,6 +205,7 @@
 				4977C47D26D826E8004D0900 /* ComputeVsFragmentShaderApp.swift in Sources */,
 				4977C49226D8319F004D0900 /* RenderMetalToIOSurf.swift in Sources */,
 				4977C4B726D8651C004D0900 /* RenderDestination.swift in Sources */,
+				4977C4BA26D8B464004D0900 /* IOSurfaceView.swift in Sources */,
 				4977C48F26D8311F004D0900 /* RenderCIToIOSurf.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -333,7 +339,7 @@
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
-				IPHONEOS_DEPLOYMENT_TARGET = 14.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -363,7 +369,7 @@
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
-				IPHONEOS_DEPLOYMENT_TARGET = 14.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",

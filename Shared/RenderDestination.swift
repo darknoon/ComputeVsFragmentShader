@@ -11,7 +11,7 @@ import CoreVideo
 import IOSurface
 import Metal
 
-func makeRenderDest(device: MTLDevice, descriptor: MTLTextureDescriptor) -> (IOSurface, MTLTexture)? {
+func makeIOSurfaceRenderDest(device: MTLDevice, descriptor: MTLTextureDescriptor) -> (IOSurface, MTLTexture)? {
     let width = descriptor.width
     let height = descriptor.height
     let cvPixFmt = kCVPixelFormatType_64RGBAHalf
