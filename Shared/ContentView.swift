@@ -6,6 +6,7 @@
 //
 
 import SwiftUI
+import MetalKit
 
 extension MTLCommandBufferDescriptor {
     static let reportError: MTLCommandBufferDescriptor = {
@@ -21,6 +22,10 @@ enum Strategy {
     case compute
 }
 
+struct Images {
+    static let img_2118_crop: URL = Bundle.main.url(forResource: "IMG_2118_cropped_2048", withExtension: "tiff")!
+}
+
 class RenderManager: ObservableObject {
     let q: MTLCommandQueue
     let multiPass: MetalFragmentRenderer
@@ -28,18 +33,23 @@ class RenderManager: ObservableObject {
     let compute: MetalComputeRenderer
     let scope: MTLCaptureScope
     
-    init() throws /*MetalFailure*/ {
+    let inputTexture: MTLTexture
+    
+    init() throws /*MetalFailure, MTKTextureLoaderError? */ {
         let multi = try MetalFragmentRenderer(shaderNames: ["fragmentShader0", "fragmentShader1", "fragmentShader2"])
         let single = try MetalFragmentRenderer(shaderNames: ["fragmentShader012"])
         let compute = try MetalComputeRenderer(shaderNames: ["computeShader012"])
         
         let device = multi.device
 
+        let loader = MTKTextureLoader(device: device)
+        inputTexture = try loader.newTexture(URL: Images.img_2118_crop, options: [.textureStorageMode: MTLStorageMode.private.rawValue])
+
         guard let q = device.makeCommandQueue()
         else { throw MetalFailure.makeQueue }
         
         let scope = MTLCaptureManager.shared().makeCaptureScope(device: q.device)
-        scope.label = "FragmentRenderer"
+        scope.label = "ImageRenderer"
         self.scope = scope
         
         self.q = q
@@ -76,9 +86,10 @@ struct ContentView: View {
 
     func render() {
         do {
-//            let sourceImage =
-            let sourceSize = (width: 2048, height: 2048)
-            
+            let inputTexture = context.inputTexture
+//            let sourceSize = (width: 2048, height: 2048)
+            let sourceSize = (width: inputTexture.width, height: inputTexture.height)
+
             let destTexDesc: MTLTextureDescriptor
             switch strategy {
             case .singlePassFragment:
@@ -102,11 +113,11 @@ struct ContentView: View {
             let (iosurf, tex) = renderDest
             switch strategy {
             case .singlePassFragment:
-                try context.singlePass.enqueue(in: buf, writeTo: tex)
+                try context.singlePass.enqueue(in: buf, from: inputTexture,  writeTo: tex)
             case .multiPassFragment:
-                try context.multiPass.enqueue(in: buf, writeTo: tex)
+                try context.multiPass.enqueue(in: buf, from: inputTexture, writeTo: tex)
             case .compute:
-                try context.compute.enqueue(in: buf, writeTo: tex)
+                try context.compute.enqueue(in: buf, from: inputTexture, writeTo: tex)
             }
 
 

@@ -79,7 +79,7 @@ struct MetalFragmentRenderer {
     }
 
     
-    func enqueue(in buf: MTLCommandBuffer, writeTo dest: MTLTexture) throws {
+    func enqueue(in buf: MTLCommandBuffer, from inputTexture: MTLTexture, writeTo dest: MTLTexture) throws {
         let width = dest.width
         let height = dest.height
         
@@ -112,6 +112,7 @@ struct MetalFragmentRenderer {
         }
 //        renderEncoder.setFragmentTexture(inputTexture, index: 0)
         for pipelineState in pipelineStates {
+            renderEncoder.setFragmentTexture(inputTexture, index: 0)
             renderEncoder.setRenderPipelineState(pipelineState)
             renderEncoder.drawPrimitives(type: .triangle, vertexStart: 0, vertexCount: 3)
         }
@@ -176,7 +177,7 @@ struct MetalComputeRenderer {
 //    }
 //
     
-    func enqueue(in buf: MTLCommandBuffer, writeTo dest: MTLTexture) throws {
+    func enqueue(in buf: MTLCommandBuffer, from inputTexture: MTLTexture, writeTo dest: MTLTexture) throws {
         let width = dest.width
         let height = dest.height
         
@@ -192,12 +193,22 @@ struct MetalComputeRenderer {
         }
 //        renderEncoder.setFragmentTexture(inputTexture, index: 0)
         for pipelineState in pipelineStates {
+            computeEncoder.setTexture(inputTexture, index: 0)
             computeEncoder.setTexture(dest, index: 1)
             computeEncoder.setComputePipelineState(pipelineState)
-            computeEncoder.dispatchThreads(
-                MTLSize(width: width, height: height, depth: 1),
-                threadsPerThreadgroup: MTLSize(width: 32, height: 32, depth: 1)
-            )
+            let grid = MTLSize(width: width, height: height, depth: 1)
+            let group = MTLSize(width: 32, height: 16, depth: 1)
+            if device.supportsFamily(.apple4) {
+                computeEncoder.dispatchThreads(
+                    grid,
+                    threadsPerThreadgroup: group
+                )
+            } else {
+                let groupCount = MTLSize(
+                    width: (grid.width + group.width - 1) / group.width,
+                    height: (grid.height + group.height - 1) / group.height, depth: 1)
+                computeEncoder.dispatchThreadgroups(groupCount, threadsPerThreadgroup: group)
+            }
         }
         computeEncoder.endEncoding()
     }

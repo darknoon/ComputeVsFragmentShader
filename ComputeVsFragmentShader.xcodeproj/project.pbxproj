@@ -23,6 +23,8 @@
 		4977C4B726D8651C004D0900 /* RenderDestination.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4977C4B526D8651C004D0900 /* RenderDestination.swift */; };
 		4977C4B926D8B464004D0900 /* IOSurfaceView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4977C4B826D8B464004D0900 /* IOSurfaceView.swift */; };
 		4977C4BA26D8B464004D0900 /* IOSurfaceView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4977C4B826D8B464004D0900 /* IOSurfaceView.swift */; };
+		4977C4BC26DD7DBE004D0900 /* IMG_2118_cropped_2048.tiff in Resources */ = {isa = PBXBuildFile; fileRef = 4977C4BB26DD7DBE004D0900 /* IMG_2118_cropped_2048.tiff */; };
+		4977C4BD26DD7DBE004D0900 /* IMG_2118_cropped_2048.tiff in Resources */ = {isa = PBXBuildFile; fileRef = 4977C4BB26DD7DBE004D0900 /* IMG_2118_cropped_2048.tiff */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -36,6 +38,7 @@
 		4977C49026D8319F004D0900 /* RenderMetalToIOSurf.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RenderMetalToIOSurf.swift; sourceTree = "<group>"; };
 		4977C4B526D8651C004D0900 /* RenderDestination.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RenderDestination.swift; sourceTree = "<group>"; };
 		4977C4B826D8B464004D0900 /* IOSurfaceView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IOSurfaceView.swift; sourceTree = "<group>"; };
+		4977C4BB26DD7DBE004D0900 /* IMG_2118_cropped_2048.tiff */ = {isa = PBXFileReference; lastKnownFileType = image.tiff; path = IMG_2118_cropped_2048.tiff; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -69,6 +72,7 @@
 			children = (
 				4977C46E26D826E6004D0900 /* ComputeVsFragmentShaderApp.swift */,
 				4977C46F26D826E6004D0900 /* ContentView.swift */,
+				4977C4BB26DD7DBE004D0900 /* IMG_2118_cropped_2048.tiff */,
 				4977C47026D826E8004D0900 /* Assets.xcassets */,
 				4977C48A26D83103004D0900 /* Shader.metal */,
 				4977C49026D8319F004D0900 /* RenderMetalToIOSurf.swift */,
@@ -167,6 +171,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				4977C4BC26DD7DBE004D0900 /* IMG_2118_cropped_2048.tiff in Resources */,
 				4977C48026D826E8004D0900 /* Assets.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -175,6 +180,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				4977C4BD26DD7DBE004D0900 /* IMG_2118_cropped_2048.tiff in Resources */,
 				4977C48126D826E8004D0900 /* Assets.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
